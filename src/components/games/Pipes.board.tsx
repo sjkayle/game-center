@@ -4,7 +4,7 @@ import { PipesMap } from '../../config/maps';
 
 const Board = (props: BoardProps) => (
   <div className='board'>
-    {props.map &&
+    {props.map ? (
       props.map.map((row: string[], i: number) => (
         <div key={i} className='board--row'>
           {row.map((pipe: string, j: number) => (
@@ -21,8 +21,10 @@ const Board = (props: BoardProps) => (
             </span>
           ))}
         </div>
-      ))}
-    {!props.map && <h4>Loading map...</h4>}
+      ))
+    ) : (
+      <h4>Loading map...</h4>
+    )}
   </div>
 );
 

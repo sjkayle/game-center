@@ -18,11 +18,17 @@ const Pipes = () => {
   const client = useRef<WebSocket | null>(null);
 
   const isGameOver = useSelector((state: RootState) => state.game.isGameOver);
-  const isGameStarted = useSelector((state: RootState) => state.game.isGameStarted);
-  const isLevelCompleted = useSelector((state: RootState) => state.game.isLevelCompleted);
+  const isGameStarted = useSelector(
+    (state: RootState) => state.game.isGameStarted
+  );
+  const isLevelCompleted = useSelector(
+    (state: RootState) => state.game.isLevelCompleted
+  );
   const level = useSelector((state: RootState) => state.game.level);
   const numOfLevels = useSelector((state: RootState) => state.game.numOfLevels);
-  const selectedGame = useSelector((state: RootState) => state.game.selectedGame);
+  const selectedGame = useSelector(
+    (state: RootState) => state.game.selectedGame
+  );
 
   const [isConnected, setIsConnected] = useState<boolean>(false);
   const [response, setResponse] = useState<IPipesServer>('');
@@ -120,28 +126,30 @@ const Pipes = () => {
 
   if (!isGameStarted) {
     body = (
-      <Dialog
-        buttonText={isConnected ? `Play` : `Loading...`}
-        disabled={!isConnected}
-        message={`Welcome to the ${selectedGame} game.`}
-        onClick={handlePlay}
-      />
+      <Dialog message={`Welcome to the ${selectedGame} game.`}>
+        <Button
+          type='secondary'
+          text={isConnected ? `Play` : `Loading...`}
+          onClick={handlePlay}
+          disabled={!isConnected}
+        />
+      </Dialog>
     );
   } else if (isGameOver) {
     body = (
-      <Dialog
-        buttonText={`New Game`}
-        message={response}
-        onClick={handleNewGame}
-      />
+      <Dialog message={response}>
+        <Button type='secondary' text={`New Game`} onClick={handleNewGame} />
+      </Dialog>
     );
   } else if (isLevelCompleted) {
     body = (
-      <Dialog
-        buttonText={`Next Level`}
-        message={response}
-        onClick={handleNextLevel}
-      />
+      <Dialog message={response}>
+        <Button
+          type='secondary'
+          text={`Next Level`}
+          onClick={handleNextLevel}
+        />
+      </Dialog>
     );
   } else {
     body = (
