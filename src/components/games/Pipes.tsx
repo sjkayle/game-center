@@ -5,7 +5,7 @@ import PipesBoard from './Pipes.board';
 import Dialog from '../Dialog';
 import { GameLayout } from '../layouts';
 import { RootState } from '../../redux/store';
-import * as actions from '../../redux/slices/game.slice';
+import * as actions from '../../redux/slices/gameSlice';
 import * as utils from '../../utils/helpers';
 import { solvePipes } from '../../utils/autosolvers';
 
@@ -18,6 +18,7 @@ const Pipes = () => {
     (state: RootState) => state.game.isLevelCompleted
   );
   const level = useSelector((state: RootState) => state.game.level);
+  const numOfLevels = useSelector((state: RootState) => state.game.numOfLevels);
   const passwords = useSelector((state: RootState) => state.game.passwords);
 
   const [isConnected, setIsConnected] = useState<boolean>(false);
@@ -49,15 +50,19 @@ const Pipes = () => {
           break;
 
         case 'verify':
-          if (data.includes('Correct!')) {
+          if (val.includes('Password')) {
             const password = utils.extractPassword(data);
-            dispatch(actions.completeLevel(password));
-            setResponse(`New password unlocked: ${password}`);
+            if (level < numOfLevels) {
+              setResponse(`Password unlocked:\n${password}`);
+              dispatch(actions.completeLevel(password));
+            } else {
+              setResponse(`Game over!\nFinal password:\n${password}`);
+              dispatch(actions.finishGame());
+            }
             return;
-          }
-          if (data.includes('Only 10 verifications allowed per attempt.')) {
+          } else if (val === 'Only 10 verifications allowed per attempt.') {
             dispatch(actions.finishGame());
-            setResponse(`Game over. ${val}`);
+            setResponse(`Game over!\n${val}`);
             return;
           }
           setResponse(val);
@@ -67,7 +72,7 @@ const Pipes = () => {
           break;
       }
     };
-  }, [dispatch]);
+  }, [dispatch, level, numOfLevels]);
 
   const handlePlay = () => {
     if (!client.current) return;

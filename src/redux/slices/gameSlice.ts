@@ -5,6 +5,7 @@ export interface GameState {
   isGameStarted: boolean;
   isLevelCompleted: boolean;
   level: number;
+  numOfLevels: number;
   passwords: string[];
 }
 
@@ -13,6 +14,7 @@ const initialState: GameState = {
   isGameStarted: false,
   isLevelCompleted: false,
   level: 1,
+  numOfLevels: 1,
   passwords: [],
 };
 
@@ -34,11 +36,20 @@ const gameSlice = createSlice({
     startLevel: (state) => {
       state.isLevelCompleted = false;
     },
+    setNumOfLevels: (state, action: PayloadAction<number>) => {
+      state.numOfLevels = action.payload;
+    },
     reset: () => initialState,
   },
 });
 
-export const { completeLevel, finishGame, startGame, startLevel, reset } =
-  gameSlice.actions;
+export const {
+  completeLevel,
+  finishGame,
+  startGame,
+  startLevel,
+  setNumOfLevels,
+  reset,
+} = gameSlice.actions;
 
 export default gameSlice.reducer;

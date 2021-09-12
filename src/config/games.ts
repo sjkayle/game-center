@@ -4,6 +4,7 @@ const games: Game[] = [
   {
     id: 1,
     label: 'Pipes',
+    levels: 6,
     path: '/pipes',
     component: Pipes,
   },
@@ -12,6 +13,7 @@ const games: Game[] = [
 export interface Game {
   id: number;
   label: string;
+  levels: number;
   path: string;
   component: any;
 }

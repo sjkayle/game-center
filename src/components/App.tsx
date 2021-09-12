@@ -1,20 +1,30 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
 
+import { setNumOfLevels } from '../redux/slices/gameSlice';
 import games, { Game } from '../config/games';
 
-const Home = (props: HomeProps) => (
-  <div className='wrapper'>
-    <h1 className='txt-big'>Hello. Select a game.</h1>
-    <div>
-      {props.games.map((game, idx) => (
-        <Link key={idx} to={game.path}>
-          <button className='btn-primary mx-1'>{game.label}</button>
-        </Link>
-      ))}
+const Home = (props: HomeProps) => {
+  const dispatch = useDispatch();
+  return (
+    <div className='wrapper'>
+      <h1 className='txt-big'>Hello. Select a game.</h1>
+      <div>
+        {props.games.map((game, idx) => (
+          <Link key={idx} to={game.path}>
+            <button
+              className='btn-primary mx-1'
+              onClick={() => dispatch(setNumOfLevels(game.levels))}
+            >
+              {game.label}
+            </button>
+          </Link>
+        ))}
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 const App = () => {
   return (

@@ -2,7 +2,7 @@ import React from 'react';
 
 const Dialog = (props: DialogProps) => (
   <div className='dialog--wrapper'>
-    <h1 className='txt-big'>{props.message}</h1>
+    <pre className='txt-big'>{props.message}</pre>
     <button
       className='btn-secondary'
       onClick={props.onClick}

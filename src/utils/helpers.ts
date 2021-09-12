@@ -4,7 +4,7 @@
  */
 export const extractMessage = (str: string) => {
   const [key, val] = str.split(':');
-  return [key, val];
+  return [key, val.trim()];
 };
 
 /**

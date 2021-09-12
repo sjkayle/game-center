@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { reset } from '../../redux/slices/game.slice';
+import { reset } from '../../redux/slices/gameSlice';
 
 const GameLayout = (props: GameLayoutProps) => {
   const dispatch = useDispatch();

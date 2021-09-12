@@ -1,3 +1,3 @@
-import gameReducer from './game.slice';
+import gameReducer from './gameSlice';
 
 export { gameReducer };
