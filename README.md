@@ -43,7 +43,7 @@ To add a new game, simply add a new object inside the `games` array in the [game
 
 I have no experience creating something with Canvas 2D or WebGL yet _(but I am very much willing to learn it!)_, so I just went with creating simple strokes in SVG for visual representation of the pipes.
 
-The SVG files are located in the [public assets](../src/public/assets/images/) folder.
+The SVG files are located in the public assets folder.
 
 ## Steps to Launch
 
