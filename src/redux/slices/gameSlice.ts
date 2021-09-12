@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Game } from '../../config/games';
+import { IGame } from '../../config/games';
 
 const initialState: GameState = {
   isGameOver: false,
@@ -33,9 +33,9 @@ const gameSlice = createSlice({
     startLevel: (state) => {
       state.isLevelCompleted = false;
     },
-    setGame: (state, action: PayloadAction<Game>) => {
-      state.numOfLevels = action.payload.levels;
-      state.selectedGame = action.payload.label;
+    setGame: (state, action: PayloadAction<Partial<IGame>>) => {
+      state.numOfLevels = action.payload.levels!;
+      state.selectedGame = action.payload.label!;
     },
     reset: () => initialState,
   },

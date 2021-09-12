@@ -112,6 +112,7 @@ const Pipes = () => {
 
   const handleAutoSolve = () => {
     const pipes = solvePipes(map!);
+    if (pipes.length === 0) return;
     const groupedPipes = utils.groupElementsByN(pipes, 3);
     groupedPipes.forEach((grp: string[]) => {
       if (!client.current) return;

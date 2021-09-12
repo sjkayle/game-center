@@ -1,6 +1,6 @@
 import { Pipes } from '../components/games';
 
-const games: Game[] = [
+const games: IGame[] = [
   {
     id: 1,
     label: 'Pipes',
@@ -10,7 +10,7 @@ const games: Game[] = [
   },
 ];
 
-export interface Game {
+export interface IGame {
   id: number;
   label: string;
   levels: number;
