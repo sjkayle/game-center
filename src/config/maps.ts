@@ -17,7 +17,7 @@ export const PipesMap = new Map([
   ['┃', 'vertical'],
 ]);
 
-// for mapping used in auto-solver algorithm
+// for mapping used in autosolver algorithm
 export const PipesMapToCoordinates = new Map([
   ['╋', '1111'],
   ['┓', '0011'],

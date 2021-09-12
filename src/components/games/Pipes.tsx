@@ -22,7 +22,8 @@ const Pipes = () => {
 
   const [isConnected, setIsConnected] = useState<boolean>(false);
   const [map, setMap] = useState<Array<string[]> | undefined>();
-  const [response, setResponse] = useState<string>('');
+  const [response, setResponse] = useState<IPipesServer>('');
+
   const client = useRef<WebSocket | null>(null);
 
   const dispatch = useCallback(useDispatch(), []); //eslint-disable-line
@@ -30,7 +31,6 @@ const Pipes = () => {
   useEffect(() => {
     client.current = new WebSocket('wss://hometask.eg1236.com/game-pipes/');
     client.current.onopen = () => setIsConnected(true);
-
     return () => {
       client.current?.close();
     };

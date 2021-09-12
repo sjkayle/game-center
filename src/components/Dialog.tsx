@@ -16,7 +16,7 @@ const Dialog = (props: DialogProps) => (
 type DialogProps = {
   buttonText: string;
   disabled?: boolean;
-  message: string;
+  message: IPipesServer;
   onClick: () => void;
 };
 
