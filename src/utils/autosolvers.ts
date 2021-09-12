@@ -128,8 +128,12 @@ export const solvePipes = (map: Array<string[]>) => {
       // for elbows
       let nextElbow;
       if (SEQ_ELBOWS.includes(top[i].pipe!)) {
-        if (top[i + 1].locked && top[i + 1].pipe?.charAt(3) === '1') {
-          nextElbow = checkSequence(SEQ_ELBOWS, top[i].pipe!, '0110');
+        if (top[i + 1].locked) {
+          nextElbow = checkSequence(
+            SEQ_ELBOWS,
+            top[i].pipe!,
+            top[i + 1].pipe?.charAt(3) === '1' ? '0110' : '0011'
+          );
           if (nextElbow) {
             pipesToRotate.push(`${i} 0`);
             top[i].pipe = nextElbow;
@@ -137,8 +141,12 @@ export const solvePipes = (map: Array<string[]>) => {
             continue;
           } else top[i].locked = true;
         }
-        if (top[i - 1].locked && top[i - 1].pipe?.charAt(1) === '1') {
-          nextElbow = checkSequence(SEQ_ELBOWS, top[i].pipe!, '0011');
+        if (top[i - 1].locked) {
+          nextElbow = checkSequence(
+            SEQ_ELBOWS,
+            top[i].pipe!,
+            top[i - 1].pipe?.charAt(1) === '1' ? '0011' : '0110'
+          );
           if (nextElbow) {
             pipesToRotate.push(`${i} 0`);
             top[i].pipe = nextElbow;
@@ -148,8 +156,12 @@ export const solvePipes = (map: Array<string[]>) => {
         }
       }
       if (SEQ_ELBOWS.includes(btm[i].pipe!)) {
-        if (btm[i + 1].locked && btm[i + 1].pipe?.charAt(3) === '1') {
-          nextElbow = checkSequence(SEQ_ELBOWS, btm[i].pipe!, '1100');
+        if (btm[i + 1].locked) {
+          nextElbow = checkSequence(
+            SEQ_ELBOWS,
+            btm[i].pipe!,
+            btm[i + 1].pipe?.charAt(3) === '1' ? '1100' : '1001'
+          );
           if (nextElbow) {
             pipesToRotate.push(`${i} ${mapRows - 1}`);
             btm[i].pipe = nextElbow;
@@ -157,8 +169,12 @@ export const solvePipes = (map: Array<string[]>) => {
             continue;
           } else btm[i].locked = true;
         }
-        if (btm[i - 1].locked && btm[i - 1].pipe?.charAt(1) === '1') {
-          nextElbow = checkSequence(SEQ_ELBOWS, btm[i].pipe!, '1001');
+        if (btm[i - 1].locked) {
+          nextElbow = checkSequence(
+            SEQ_ELBOWS,
+            btm[i].pipe!,
+            btm[i - 1].pipe?.charAt(1) === '1' ? '1001' : '1100'
+          );
           if (nextElbow) {
             pipesToRotate.push(`${i} ${mapRows - 1}`);
             btm[i].pipe = nextElbow;
@@ -212,15 +228,13 @@ export const solvePipes = (map: Array<string[]>) => {
       // for elbows
       let nextElbow;
       if (SEQ_ELBOWS.includes(arrPipeObj[i][mapCols - 1].pipe!)) {
-        if (
-          arrPipeObj[i - 1] &&
-          arrPipeObj[i - 1][mapCols - 1].locked &&
-          arrPipeObj[i - 1][mapCols - 1].pipe?.charAt(2) === '1'
-        ) {
+        if (arrPipeObj[i - 1][mapCols - 1].locked) {
           nextElbow = checkSequence(
             SEQ_ELBOWS,
             arrPipeObj[i][mapCols - 1].pipe!,
-            '1001'
+            arrPipeObj[i - 1][mapCols - 1].pipe?.charAt(2) === '1'
+              ? '1001'
+              : '0011'
           );
           if (nextElbow) {
             pipesToRotate.push(`${mapCols - 1} ${i}`);
@@ -229,14 +243,13 @@ export const solvePipes = (map: Array<string[]>) => {
             continue;
           } else arrPipeObj[i][mapCols - 1].locked = true;
         }
-        if (
-          arrPipeObj[i + 1][mapCols - 1].locked &&
-          arrPipeObj[i + 1][mapCols - 1].pipe?.charAt(0) === '1'
-        ) {
+        if (arrPipeObj[i + 1][mapCols - 1].locked) {
           nextElbow = checkSequence(
             SEQ_ELBOWS,
             arrPipeObj[i][mapCols - 1].pipe!,
-            '0110'
+            arrPipeObj[i + 1][mapCols - 1].pipe?.charAt(0) === '1'
+              ? '0011'
+              : '1001'
           );
           if (nextElbow) {
             pipesToRotate.push(`${mapCols - 1} ${i}`);
@@ -247,11 +260,12 @@ export const solvePipes = (map: Array<string[]>) => {
         }
       }
       if (SEQ_ELBOWS.includes(arrPipeObj[i][0].pipe!)) {
-        if (
-          arrPipeObj[i - 1][0].locked &&
-          arrPipeObj[i - 1][0].pipe?.charAt(2) === '1'
-        ) {
-          nextElbow = checkSequence(SEQ_ELBOWS, arrPipeObj[i][0].pipe!, '1100');
+        if (arrPipeObj[i - 1][0].locked) {
+          nextElbow = checkSequence(
+            SEQ_ELBOWS,
+            arrPipeObj[i][0].pipe!,
+            arrPipeObj[i - 1][0].pipe?.charAt(2) === '1' ? '1100' : '0110'
+          );
           if (nextElbow) {
             pipesToRotate.push(`0 ${i}`);
             arrPipeObj[i][0].pipe = nextElbow;
@@ -259,11 +273,12 @@ export const solvePipes = (map: Array<string[]>) => {
             continue;
           } else arrPipeObj[i][0].locked = true;
         }
-        if (
-          arrPipeObj[i + 1][0].locked &&
-          arrPipeObj[i + 1][0].pipe?.charAt(0) === '1'
-        ) {
-          nextElbow = checkSequence(SEQ_ELBOWS, arrPipeObj[i][0].pipe!, '0110');
+        if (arrPipeObj[i + 1][0].locked) {
+          nextElbow = checkSequence(
+            SEQ_ELBOWS,
+            arrPipeObj[i][0].pipe!,
+            arrPipeObj[i + 1][0].pipe?.charAt(0) === '1' ? '0110' : '1100'
+          );
           if (nextElbow) {
             pipesToRotate.push(`0 ${i}`);
             arrPipeObj[i][0].pipe = nextElbow;
@@ -363,7 +378,6 @@ export const solvePipes = (map: Array<string[]>) => {
       }
     }
   }
+
   return pipesToRotate;
 };
-
-// TODO: fix left and right elbow loop

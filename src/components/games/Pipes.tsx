@@ -17,17 +17,11 @@ const Pipes = () => {
   const client = useRef<WebSocket | null>(null);
 
   const isGameOver = useSelector((state: RootState) => state.game.isGameOver);
-  const isGameStarted = useSelector(
-    (state: RootState) => state.game.isGameStarted
-  );
-  const isLevelCompleted = useSelector(
-    (state: RootState) => state.game.isLevelCompleted
-  );
+  const isGameStarted = useSelector((state: RootState) => state.game.isGameStarted);
+  const isLevelCompleted = useSelector((state: RootState) => state.game.isLevelCompleted);
   const level = useSelector((state: RootState) => state.game.level);
   const numOfLevels = useSelector((state: RootState) => state.game.numOfLevels);
-  const selectedGame = useSelector(
-    (state: RootState) => state.game.selectedGame
-  );
+  const selectedGame = useSelector((state: RootState) => state.game.selectedGame);
 
   const [isConnected, setIsConnected] = useState<boolean>(false);
   const [response, setResponse] = useState<IPipesServer>('');
