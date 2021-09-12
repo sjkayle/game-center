@@ -1,6 +1,7 @@
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+import Button from './Button';
 import { setGame } from '../redux/slices/gameSlice';
 import { IGame } from '../config/games';
 
@@ -18,12 +19,11 @@ const Home = (props: HomeProps) => {
           };
           return (
             <Link key={idx} to={game.path}>
-              <button
-                className='btn-primary mx-1'
+              <Button
+                type='primary'
+                text={game.label}
                 onClick={() => dispatch(setGame(games))}
-              >
-                {game.label}
-              </button>
+              />
             </Link>
           );
         })}

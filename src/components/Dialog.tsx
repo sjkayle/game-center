@@ -1,15 +1,15 @@
 import React from 'react';
+import Button from './Button';
 
 const Dialog = (props: DialogProps) => (
   <div className='dialog--wrapper'>
     <pre className='txt-big'>{props.message}</pre>
-    <button
-      className='btn-secondary'
+    <Button
+      type='secondary'
+      text={props.buttonText}
       onClick={props.onClick}
       disabled={props.disabled}
-    >
-      {props.buttonText}
-    </button>
+    />
   </div>
 );
 

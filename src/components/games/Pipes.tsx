@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+import Button from '../Button';
 import Dialog from '../Dialog';
 import PipesBoard from './Pipes.board';
 import { GameLayout } from '../layouts';
@@ -147,25 +148,23 @@ const Pipes = () => {
       <GameLayout>
         <PipesBoard map={map} onClick={handleRotate} />
         <div className='pos-relative'>
-          <button
-            className='btn-primary'
+          <Button
+            type='primary'
+            text='Hint'
             onClick={handleAutoSolve}
             disabled={!Boolean(map)}
-          >
-            Hint
-          </button>
-          <button
-            className='btn-primary'
+          />
+          <Button
+            type='primary'
+            text='Verify'
             onClick={handleVerify}
             disabled={!Boolean(map)}
-          >
-            Verify
-          </button>
+          />
           {response && <span className='txt-fail'>{response}</span>}
         </div>
         {passwords.length > 0 && (
           <div className='mt-1'>
-            {`Passwords unlocked: `}
+            {'Passwords unlocked: '}
             {passwords.join(', ')}
           </div>
         )}
