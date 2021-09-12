@@ -39,6 +39,12 @@ This makes the application more dynamic and highly scalable.
 
 To add a new game, simply add a new object inside the `games` array in the [games.ts](./src/config/games.ts) file, and then develop the components or reuse existing components necessary for the new game.
 
+### Design
+
+I have no experience creating something with Canvas 2D or WebGL yet _(but I am very much willing to learn it!)_, so I just went with creating simple strokes in SVG for visual representation of the pipes.
+
+The SVG files are located in the [public assets](../src/public/assets/images/) folder.
+
 ## Steps to Launch
 
 ### Live demo
