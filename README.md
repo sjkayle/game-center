@@ -12,15 +12,15 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ### Negative scenarios
 
-There was no error handling added.
+There was no error handling added.\
 The application does not handle any invalid inputs or unexpected behavior by the user.
 
 ### Autosolver algorithm
 
 The [autosolver](./src/utils/autosolvers.ts) will be executed when the _Hint_ button is clicked.
 
-Please note however that this will not solve the entire puzzle.
-Instead, it will only solve most of the pipes (_straight-lines_, _elbows_, and _tees_) along the edges of the board.
+Please note however that this will not solve the entire puzzle.\
+Instead, it will only solve most of the pipes (_straight-lines_, _elbows_, and _tees_) along the edges of the board.\
 It will also solve _single-ended_ or _straight-line_ pipes that are adjacent to _cross_ pipes.
 
 ## Key Decisions
@@ -47,18 +47,10 @@ Go to the [live website](https://sjkayle-game-center.netlify.app/) deployed in *
 
 ### To run in development mode
 
-1. Clone the repository
+1. Clone the repository: `git clone https://github.com/sjkayle/frontend-pipes.git`
 
-`git clone https://github.com/sjkayle/frontend-pipes.git`
+2. Install the node modules: `npm install`
 
-2. Install the node modules
-
-`npm install`
-
-3. Run the application
-
-`npm start`
-
-### `npm start`
+3. Run the application: `npm start`
 
 4. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
