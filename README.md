@@ -25,7 +25,7 @@ It will also solve _single-ended_ or _straight-line_ pipes that are adjacent to 
 
 ## Key Decisions
 
-### State Management
+### State management
 
 At first, I was not considering to use an external state management library as I belive that I would be able to mannage the state inside the components themselves.
 
@@ -41,7 +41,7 @@ To add a new game, simply add a new object inside the `games` array in the [game
 
 ## Steps to Launch
 
-### Live Demo
+### Live demo
 
 Go to the [live website](https://sjkayle-game-center.netlify.app/) deployed in **Netlify**.
 
@@ -49,8 +49,10 @@ Go to the [live website](https://sjkayle-game-center.netlify.app/) deployed in *
 
 1. Clone the repository: `git clone https://github.com/sjkayle/frontend-pipes.git`
 
-2. Install the node modules: `npm install`
+2. Go to the directory: `cd frontend-pipes`
 
-3. Run the application: `npm start`
+3. Install the node modules: `npm install`
 
-4. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+4. Run the application: `npm start`
+
+5. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
