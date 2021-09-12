@@ -1,15 +1,21 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import PipesBoard from './Pipes.board';
 import Dialog from '../Dialog';
+import PipesBoard from './Pipes.board';
 import { GameLayout } from '../layouts';
+import { PipeCommands as commands } from '../../config/commands';
 import { RootState } from '../../redux/store';
-import * as actions from '../../redux/slices/gameSlice';
-import * as utils from '../../utils/helpers';
 import { solvePipes } from '../../utils/autosolvers';
 
+import * as actions from '../../redux/slices/gameSlice';
+import * as utils from '../../utils/helpers';
+
 const Pipes = () => {
+  const dispatch = useCallback(useDispatch(), []); //eslint-disable-line
+
+  const client = useRef<WebSocket | null>(null);
+
   const isGameOver = useSelector((state: RootState) => state.game.isGameOver);
   const isGameStarted = useSelector(
     (state: RootState) => state.game.isGameStarted
@@ -19,15 +25,14 @@ const Pipes = () => {
   );
   const level = useSelector((state: RootState) => state.game.level);
   const numOfLevels = useSelector((state: RootState) => state.game.numOfLevels);
-  const passwords = useSelector((state: RootState) => state.game.passwords);
+  const selectedGame = useSelector(
+    (state: RootState) => state.game.selectedGame
+  );
 
   const [isConnected, setIsConnected] = useState<boolean>(false);
-  const [map, setMap] = useState<Array<string[]> | undefined>();
   const [response, setResponse] = useState<IPipesServer>('');
-
-  const client = useRef<WebSocket | null>(null);
-
-  const dispatch = useCallback(useDispatch(), []); //eslint-disable-line
+  const [map, setMap] = useState<Array<string[]> | undefined>();
+  const [passwords, setPasswords] = useState<string[]>([]);
 
   useEffect(() => {
     client.current = new WebSocket('wss://hometask.eg1236.com/game-pipes/');
@@ -39,26 +44,26 @@ const Pipes = () => {
 
   useEffect(() => {
     if (!client.current) return;
-
     client.current.onmessage = (e: MessageEvent) => {
       const { data } = e;
       const [key, val] = utils.extractMessage(data);
 
       switch (key) {
-        case 'map':
+        case commands.MAP:
           setMap(utils.formatTo3dArray(val));
           break;
 
-        case 'verify':
+        case commands.VERIFY:
           if (val.includes('Password')) {
             const password = utils.extractPassword(data);
             if (level < numOfLevels) {
               setResponse(`Password unlocked:\n${password}`);
-              dispatch(actions.completeLevel(password));
-            } else {
-              setResponse(`Game over!\nFinal password:\n${password}`);
-              dispatch(actions.finishGame());
+              setPasswords((prev) => [...prev, password]);
+              dispatch(actions.completeLevel());
+              return;
             }
+            setResponse(`Game over!\nFinal password:\n${password}`);
+            dispatch(actions.finishGame());
             return;
           } else if (val === 'Only 10 verifications allowed per attempt.') {
             dispatch(actions.finishGame());
@@ -76,17 +81,15 @@ const Pipes = () => {
 
   const handlePlay = () => {
     if (!client.current) return;
-    if (!isGameStarted) {
-      dispatch(actions.startGame());
-    }
+    if (!isGameStarted) dispatch(actions.startGame());
     setMap(undefined);
     setResponse('');
-    client.current.send(`new ${level}`);
-    client.current.send(`map`);
+    client.current.send(`${commands.NEW} ${level}`);
+    client.current.send(commands.MAP);
   };
 
   const handleNewGame = () => {
-    dispatch(actions.reset());
+    dispatch(actions.newGame());
     handlePlay();
   };
 
@@ -98,13 +101,13 @@ const Pipes = () => {
   const handleRotate = (x: number, y: number) => {
     if (!client.current) return;
     setResponse('');
-    client.current.send(`rotate ${x} ${y}`);
-    client.current.send(`map`);
+    client.current.send(`${commands.ROTATE} ${x} ${y}`);
+    client.current.send(commands.MAP);
   };
 
   const handleVerify = () => {
     if (!client.current) return;
-    client.current.send(`verify`);
+    client.current.send(commands.VERIFY);
   };
 
   const handleAutoSolve = () => {
@@ -112,8 +115,8 @@ const Pipes = () => {
     const groupedPipes = utils.groupElementsByN(pipes, 3);
     groupedPipes.forEach((grp: string[]) => {
       if (!client.current) return;
-      client.current.send(`rotate ${grp.join('\n')}`);
-      client.current.send(`map`);
+      client.current.send(`${commands.ROTATE} ${grp.join('\n')}`);
+      client.current.send(commands.MAP);
     });
   };
 
@@ -124,7 +127,7 @@ const Pipes = () => {
       <Dialog
         buttonText={isConnected ? `Play` : `Loading...`}
         disabled={!isConnected}
-        message={`Welcome to the Pipes game.`}
+        message={`Welcome to the ${selectedGame} game.`}
         onClick={handlePlay}
       />
     );
@@ -146,7 +149,7 @@ const Pipes = () => {
     );
   } else {
     body = (
-      <GameLayout title={`Pipes`} level={level}>
+      <GameLayout>
         <PipesBoard map={map} onClick={handleRotate} />
         <div className='pos-relative'>
           <button

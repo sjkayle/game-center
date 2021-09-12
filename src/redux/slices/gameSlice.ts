@@ -1,13 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-export interface GameState {
-  isGameOver: boolean;
-  isGameStarted: boolean;
-  isLevelCompleted: boolean;
-  level: number;
-  numOfLevels: number;
-  passwords: string[];
-}
+import { Game } from '../../config/games';
 
 const initialState: GameState = {
   isGameOver: false,
@@ -15,17 +7,22 @@ const initialState: GameState = {
   isLevelCompleted: false,
   level: 1,
   numOfLevels: 1,
-  passwords: [],
+  selectedGame: '<name>',
 };
 
 const gameSlice = createSlice({
   name: 'game',
   initialState,
   reducers: {
-    completeLevel: (state, action: PayloadAction<string>) => {
+    completeLevel: (state) => {
       state.level++;
       state.isLevelCompleted = true;
-      state.passwords.push(action.payload);
+    },
+    newGame: (state) => {
+      state.isGameOver = false;
+      state.isGameStarted = false;
+      state.isLevelCompleted = false;
+      state.level = 1;
     },
     finishGame: (state) => {
       state.isGameOver = true;
@@ -36,19 +33,30 @@ const gameSlice = createSlice({
     startLevel: (state) => {
       state.isLevelCompleted = false;
     },
-    setNumOfLevels: (state, action: PayloadAction<number>) => {
-      state.numOfLevels = action.payload;
+    setGame: (state, action: PayloadAction<Game>) => {
+      state.numOfLevels = action.payload.levels;
+      state.selectedGame = action.payload.label;
     },
     reset: () => initialState,
   },
 });
 
+interface GameState {
+  isGameOver: boolean;
+  isGameStarted: boolean;
+  isLevelCompleted: boolean;
+  level: number;
+  numOfLevels: number;
+  selectedGame: string;
+}
+
 export const {
   completeLevel,
   finishGame,
+  newGame,
   startGame,
   startLevel,
-  setNumOfLevels,
+  setGame,
   reset,
 } = gameSlice.actions;
 

@@ -1,10 +1,16 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+import { RootState } from '../../redux/store';
 import { reset } from '../../redux/slices/gameSlice';
 
 const GameLayout = (props: GameLayoutProps) => {
+  const level = useSelector((state: RootState) => state.game.level);
+  const selectedGame = useSelector(
+    (state: RootState) => state.game.selectedGame
+  );
+
   const dispatch = useDispatch();
   return (
     <>
@@ -15,8 +21,8 @@ const GameLayout = (props: GameLayoutProps) => {
       </nav>
       <div className='wrapper'>
         <h1>
-          {props.title}
-          {props.level && <span>, level {props.level}</span>}
+          {selectedGame}
+          {level && <span>, level {level}</span>}
         </h1>
         {props.children}
       </div>
@@ -25,8 +31,6 @@ const GameLayout = (props: GameLayoutProps) => {
 };
 
 type GameLayoutProps = {
-  title: string;
-  level?: number;
   children: any;
 };
 

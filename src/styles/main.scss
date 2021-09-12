@@ -38,15 +38,15 @@ a {
 }
 
 .txt-big {
+  font-family: inherit;
+  font-weight: bold;
   font-size: 5rem;
+  white-space: pre-wrap;
 }
 
 .txt-fail {
-  // position: absolute;
   font-weight: bold;
   color: $color-primary-dark;
-  // top: 14px;
-  // left: 115px;
 }
 
 .board {

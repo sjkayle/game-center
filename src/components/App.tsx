@@ -1,30 +1,8 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
-import { setNumOfLevels } from '../redux/slices/gameSlice';
-import games, { Game } from '../config/games';
-
-const Home = (props: HomeProps) => {
-  const dispatch = useDispatch();
-  return (
-    <div className='wrapper'>
-      <h1 className='txt-big'>Hello. Select a game.</h1>
-      <div>
-        {props.games.map((game, idx) => (
-          <Link key={idx} to={game.path}>
-            <button
-              className='btn-primary mx-1'
-              onClick={() => dispatch(setNumOfLevels(game.levels))}
-            >
-              {game.label}
-            </button>
-          </Link>
-        ))}
-      </div>
-    </div>
-  );
-};
+import Home from './Home';
+import games from '../config/games';
 
 const App = () => {
   return (
@@ -41,10 +19,6 @@ const App = () => {
       </Switch>
     </BrowserRouter>
   );
-};
-
-type HomeProps = {
-  games: Game[];
 };
 
 export default App;
