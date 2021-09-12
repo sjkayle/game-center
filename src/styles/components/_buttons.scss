@@ -1,0 +1,35 @@
+%button {
+  padding: 14px 25px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 16px;
+  border-radius: 50px;
+  transition: all 0.4s ease-out;
+
+  &:disabled {
+    color: $color-outline;
+    background-color: $color-secondary;
+    border: 1px solid $color-outline;
+  }
+}
+
+.btn-primary {
+  @extend %button;
+  color: $color-secondary;
+  background-color: $color-primary;
+
+  &:hover:enabled {
+    background-color: $color-primary-dark;
+  }
+}
+
+.btn-secondary {
+  @extend %button;
+  color: $color-primary;
+  background-color: $color-secondary;
+
+  &:hover:enabled {
+    background-color: $color-secondary-dark;
+  }
+}

@@ -1,0 +1,79 @@
+@import 'base';
+@import 'mixins';
+@import 'variables';
+
+@import 'components/buttons';
+
+nav {
+  position: fixed;
+  padding: 15px;
+  width: 100%;
+  height: auto;
+}
+
+a {
+  color: black;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.pos-relative {
+  display: flex;
+  align-items: center;
+}
+
+.pos-relative > * {
+  margin: 0 5px;
+}
+
+.mt-1 {
+  margin-top: 1em;
+}
+
+.mx-1 {
+  margin: 0 1em;
+}
+
+.txt-big {
+  font-size: 5rem;
+}
+
+.txt-fail {
+  // position: absolute;
+  font-weight: bold;
+  color: $color-primary-dark;
+  // top: 14px;
+  // left: 115px;
+}
+
+.board {
+  overflow: auto;
+  white-space: nowrap;
+  max-width: 95vw;
+  height: 60vh;
+  margin: 15px auto;
+}
+
+.board--row {
+  width: 100%;
+  height: 50px;
+}
+
+.board--cell {
+  cursor: pointer;
+}
+
+.wrapper {
+  @include wrapper($color-secondary, $color-black);
+}
+
+.dialog--wrapper {
+  @include wrapper($color-primary, $color-secondary);
+}
+
+@media screen and (max-width: 768px) {
+  .txt-big {
+    font-size: 3rem;
+  }
+}
