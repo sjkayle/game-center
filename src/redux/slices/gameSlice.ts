@@ -1,4 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+
+import { RootState } from '../store';
 import { IGame } from '../../config/games';
 
 const initialState: GameState = {
@@ -49,6 +51,19 @@ interface GameState {
   numOfLevels: number;
   selectedGame: string;
 }
+
+export const isGameOver = (state: RootState) => state.game.isGameOver;
+
+export const isGameStarted = (state: RootState) => state.game.isGameStarted;
+
+export const isLevelCompleted = (state: RootState) =>
+  state.game.isLevelCompleted;
+
+export const level = (state: RootState) => state.game.level;
+
+export const numOfLevels = (state: RootState) => state.game.numOfLevels;
+
+export const selectedGame = (state: RootState) => state.game.selectedGame;
 
 export const {
   completeLevel,

@@ -6,10 +6,9 @@ import Dialog from '../Dialog';
 import PipesBoard from './Pipes.board';
 import { GameLayout } from '../layouts';
 import { PipeCommands as commands } from '../../config/commands';
-import { RootState } from '../../redux/store';
 import { solvePipes } from '../../utils/autosolvers';
 
-import * as actions from '../../redux/slices/gameSlice';
+import * as slice from '../../redux/slices/gameSlice';
 import * as utils from '../../utils/helpers';
 
 const Pipes = () => {
@@ -17,18 +16,12 @@ const Pipes = () => {
 
   const client = useRef<WebSocket | null>(null);
 
-  const isGameOver = useSelector((state: RootState) => state.game.isGameOver);
-  const isGameStarted = useSelector(
-    (state: RootState) => state.game.isGameStarted
-  );
-  const isLevelCompleted = useSelector(
-    (state: RootState) => state.game.isLevelCompleted
-  );
-  const level = useSelector((state: RootState) => state.game.level);
-  const numOfLevels = useSelector((state: RootState) => state.game.numOfLevels);
-  const selectedGame = useSelector(
-    (state: RootState) => state.game.selectedGame
-  );
+  const isGameOver = useSelector(slice.isGameOver);
+  const isGameStarted = useSelector(slice.isGameStarted);
+  const isLevelCompleted = useSelector(slice.isLevelCompleted);
+  const level = useSelector(slice.level);
+  const numOfLevels = useSelector(slice.numOfLevels);
+  const selectedGame = useSelector(slice.selectedGame);
 
   const [isConnected, setIsConnected] = useState<boolean>(false);
   const [response, setResponse] = useState<IPipesServer>('');
@@ -60,14 +53,14 @@ const Pipes = () => {
             if (level < numOfLevels) {
               setResponse(`Password unlocked:\n${password}`);
               setPasswords((prev) => [...prev, password]);
-              dispatch(actions.completeLevel());
+              dispatch(slice.completeLevel());
               return;
             }
             setResponse(`Game over!\nFinal password:\n${password}`);
-            dispatch(actions.finishGame());
+            dispatch(slice.finishGame());
             return;
           } else if (val === 'Only 10 verifications allowed per attempt.') {
-            dispatch(actions.finishGame());
+            dispatch(slice.finishGame());
             setResponse(`Game over!\n${val}`);
             return;
           }
@@ -82,7 +75,7 @@ const Pipes = () => {
 
   const handlePlay = () => {
     if (!client.current) return;
-    if (!isGameStarted) dispatch(actions.startGame());
+    if (!isGameStarted) dispatch(slice.startGame());
     setMap(undefined);
     setResponse('');
     client.current.send(`${commands.NEW} ${level}`);
@@ -90,12 +83,12 @@ const Pipes = () => {
   };
 
   const handleNewGame = () => {
-    dispatch(actions.newGame());
+    dispatch(slice.newGame());
     handlePlay();
   };
 
   const handleNextLevel = () => {
-    dispatch(actions.startLevel());
+    dispatch(slice.startLevel());
     handlePlay();
   };
 
@@ -153,7 +146,7 @@ const Pipes = () => {
     );
   } else {
     body = (
-      <GameLayout>
+      <GameLayout heading={`${selectedGame} Level ${level}`}>
         <PipesBoard map={map} onClick={handleRotate} />
         <div className='pos-relative'>
           <Button
