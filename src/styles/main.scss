@@ -5,16 +5,14 @@
 @import 'components/buttons';
 
 nav {
-  position: fixed;
-  padding: 1.5em;
-  width: 100%;
-  height: auto;
+  position: relative;
+  padding: 12px;
   z-index: 99;
-  background-color: white;
+  background-color: $color-black;
 }
 
 a {
-  color: black;
+  color: $color-white;
   font-weight: bold;
   text-transform: uppercase;
   text-decoration: none;
