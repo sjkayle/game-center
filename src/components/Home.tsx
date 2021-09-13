@@ -11,18 +11,18 @@ const Home = (props: HomeProps) => {
     <div className='wrapper'>
       <h1 className='txt-big'>Hello. Select a game.</h1>
       <div>
-        {props.games.map((game, idx) => {
-          const { label, levels } = game;
-          const games = {
-            label,
-            levels,
+        {props.games.map((cur, idx) => {
+          const game = {
+            label: cur.label,
+            levels: cur.levels,
+            description: cur.description,
           };
           return (
-            <Link key={idx} to={game.path}>
+            <Link key={idx} to={cur.path}>
               <Button
                 type='primary'
-                text={game.label}
-                onClick={() => dispatch(setGame(games))}
+                text={cur.label}
+                onClick={() => dispatch(setGame(game))}
               />
             </Link>
           );

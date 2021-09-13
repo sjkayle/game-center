@@ -10,6 +10,7 @@ const initialState: GameState = {
   level: 1,
   numOfLevels: 1,
   selectedGame: '<name>',
+  description: '',
 };
 
 const gameSlice = createSlice({
@@ -36,8 +37,9 @@ const gameSlice = createSlice({
       state.isLevelCompleted = false;
     },
     setGame: (state, action: PayloadAction<Partial<IGame>>) => {
-      state.numOfLevels = action.payload.levels!;
       state.selectedGame = action.payload.label!;
+      state.description = action.payload.description!;
+      state.numOfLevels = action.payload.levels!;
     },
     reset: () => initialState,
   },
@@ -50,6 +52,7 @@ interface GameState {
   level: number;
   numOfLevels: number;
   selectedGame: string;
+  description: string;
 }
 
 export const isGameOver = (state: RootState) => state.game.isGameOver;
@@ -64,6 +67,8 @@ export const level = (state: RootState) => state.game.level;
 export const numOfLevels = (state: RootState) => state.game.numOfLevels;
 
 export const selectedGame = (state: RootState) => state.game.selectedGame;
+
+export const description = (state: RootState) => state.game.description;
 
 export const {
   completeLevel,

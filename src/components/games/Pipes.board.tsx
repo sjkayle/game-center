@@ -10,7 +10,7 @@ const Board = (props: BoardProps) => (
           {row.map((pipe: string, j: number) => (
             <span
               key={j}
-              className='board--cell'
+              className='board--tile'
               onClick={() => props.onClick(j, i)}
             >
               <img

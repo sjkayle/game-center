@@ -22,6 +22,7 @@ const Pipes = () => {
   const level = useSelector(slice.level);
   const numOfLevels = useSelector(slice.numOfLevels);
   const selectedGame = useSelector(slice.selectedGame);
+  const description = useSelector(slice.description);
 
   const [isConnected, setIsConnected] = useState<boolean>(false);
   const [response, setResponse] = useState<IPipesServer>('');
@@ -147,6 +148,7 @@ const Pipes = () => {
   } else {
     body = (
       <GameLayout heading={`${selectedGame} Level ${level}`}>
+        {description && <p>{description}</p>}
         <PipesBoard map={map} onClick={handleRotate} />
         <div className='pos-relative'>
           <Button

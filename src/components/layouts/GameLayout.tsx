@@ -6,7 +6,7 @@ const GameLayout = (props: GameLayoutProps) => (
   <>
     <Navbar />
     <div className='wrapper'>
-      <h1>{props.heading}</h1>
+      <h2>{props.heading}</h2>
       {props.children}
     </div>
   </>

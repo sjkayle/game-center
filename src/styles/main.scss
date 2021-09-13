@@ -6,7 +6,7 @@
 
 nav {
   position: fixed;
-  padding: 15px;
+  padding: 1.5em;
   width: 100%;
   height: auto;
   z-index: 99;
@@ -20,6 +20,10 @@ a {
   text-decoration: none;
 }
 
+h2 {
+  margin: 0 15px;
+}
+
 .pos-relative {
   display: flex;
   align-items: center;
@@ -31,10 +35,6 @@ a {
 
 .mt-1 {
   margin-top: 1em;
-}
-
-.mx-1 {
-  margin: 0 1em;
 }
 
 .txt-big {
@@ -62,7 +62,7 @@ a {
   height: 50px;
 }
 
-.board--cell {
+.board--tile {
   cursor: pointer;
 }
 
